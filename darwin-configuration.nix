@@ -184,21 +184,28 @@
       extraConfig = builtins.readFile ./tmux.conf;
     };
 
-    home.file = {
-      ".bashrc".source = ./dotfiles/.bashrc;
-      ".profile".text = "source ~/.bashrc";
-      ".git-prompt.sh".source = pkgs.fetchurl {
-        url = "https://raw.githubusercontent.com/git/git/e03acd0d4ad75115f454041fac3300ae796f108f/contrib/completion/git-prompt.sh";
-        sha256 = "XvptvCjYHcDa2YWlhVMhK3oziE3aUAb6uYV0CuJvfl8=";
+    home.file =
+      let
+        ocaml-syntax = pkgs.fetchurl {
+          url = "https://raw.githubusercontent.com/neovim/neovim/master/runtime/syntax/ocaml.vim";
+          sha256 = "U52MI3QMk9sCZ4184Y1rDAyJcqjt/7HJbOOKCY+Md0w=";
+        };
+      in
+      {
+        ".bashrc".source = ./dotfiles/.bashrc;
+        ".profile".text = "source ~/.bashrc";
+        ".git-prompt.sh".source = pkgs.fetchurl {
+          url = "https://raw.githubusercontent.com/git/git/e03acd0d4ad75115f454041fac3300ae796f108f/contrib/completion/git-prompt.sh";
+          sha256 = "XvptvCjYHcDa2YWlhVMhK3oziE3aUAb6uYV0CuJvfl8=";
+        };
+
+        # use OCaml syntax for iml and ipl files
+        ".config/nvim/syntax/ipl.vim".source = ocaml-syntax;
+        ".config/nvim/syntax/iml.vim".source = ocaml-syntax;
+
+        ".inputrc".source = ./dotfiles/.inputrc;
+        ".direnvrc".source = ./dotfiles/.direnvrc;
       };
-
-      # use OCaml syntax for iml and ipl files
-      ".config/nvim/syntax/ipl.vim".source = ./neovim/syntax/ipl.vim;
-      ".config/nvim/syntax/iml.vim".source = ./neovim/syntax/iml.vim;
-
-      ".inputrc".source = ./dotfiles/.inputrc;
-      ".direnvrc".source = ./dotfiles/.direnvrc;
-    };
   };
 
   # List packages installed in system profile. To search by name, run:
