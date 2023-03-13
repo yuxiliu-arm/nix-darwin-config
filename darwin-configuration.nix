@@ -186,6 +186,7 @@
 
     home.file = {
       ".bashrc".source = ./dotfiles/.bashrc;
+      ".profile".text = "source ~/.bashrc";
       ".git-prompt.sh".source = pkgs.fetchurl {
         url = "https://raw.githubusercontent.com/git/git/e03acd0d4ad75115f454041fac3300ae796f108f/contrib/completion/git-prompt.sh";
         sha256 = "XvptvCjYHcDa2YWlhVMhK3oziE3aUAb6uYV0CuJvfl8=";
