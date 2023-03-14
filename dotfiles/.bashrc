@@ -194,9 +194,3 @@ fi
 
 # direnv hook
 eval "$(direnv hook bash)"
-
-# git completion
-# bashcompletion@2, see https://github.com/scop/bash-completion#installation
-[[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
-
-export OTHER_LDFLAGS=-w

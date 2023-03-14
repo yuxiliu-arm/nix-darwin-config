@@ -87,98 +87,7 @@
 
     programs.neovim = {
       enable = true;
-      plugins = with pkgs.vimPlugins; [
-        vim-easymotion
-        vim-fugitive
-        vim-airline
-        {
-          plugin = vim-airline-themes;
-          config = ''
-            let g:airline_theme = 'deus'
-            let g:airline_powerline_fonts = 1
-          '';
-        }
-        vim-repeat
-        vim-surround
-        tcomment_vim
-        vim-nix
-        nvim-lspconfig
-        {
-          plugin = fzf-vim;
-          config = ''
-            nnoremap <C-p> :Rg<CR>
-            nnoremap <C-l> :Files<Space>
-          '';
-        }
-        {
-          plugin = molokai;
-          config = ''
-            syntax enable
-            colorscheme molokai
-            hi diffAdded ctermfg=46  cterm=NONE guifg=#2BFF2B gui=NONE
-            hi diffRemoved ctermfg=196 cterm=NONE guifg=#FF2B2B gui=NONE
-            set termguicolors
-          '';
-        }
-        {
-          plugin = syntastic;
-          config = ''
-            " live update loc list
-            let g:syntastic_always_populate_loc_list = 1
-            " don't auto open, but auto close when empty
-            let g:syntastic_auto_loc_list = 2
-            let g:syntastic_check_on_open = 1
-            let g:syntastic_check_on_wq = 0
-          '';
-        }
-        {
-          plugin = auto-pairs;
-          config = ''
-            let g:AutoPairs = {'(':')', '[':']', '{':'}', '"':'"', "`":"`", '```':'```', '"""':'"""'}
-          '';
-        }
-        {
-          plugin = neoformat;
-          config = ''
-            let g:neoformat_nix_nixpkgsfmt = {
-                        \ 'exe': 'nixpkgs-fmt',
-                        \ 'stdin': 1,
-                        \ }
-            let g:neoformat_enabled_nix = ['nixpkgsfmt']
-
-            function SetIndent(enable)
-                " Enable alignment
-                let b:neoformat_basic_format_align = a:enable
-                " Enable tab to spaces conversion
-                let b:neoformat_basic_format_retab = a:enable
-                " Enable trimmming of trailing whitespace
-                let b:neoformat_basic_format_trim = a:enable
-            endfunction
-
-
-            augroup noformat
-                autocmd!
-                " disable basic formatting
-                autocmd FileType markdown call SetIndent(0)
-            augroup END
-            augroup fmt
-                autocmd!
-                autocmd FileType cuda,c,cpp,haskell,nix,cabal,python,ocaml,reason,rust
-                    \ autocmd BufWritePre <buffer> silent! Neoformat |
-                    \ call SetIndent(1)
-            augroup END
-          '';
-        }
-
-        # auto complete
-        cmp-nvim-lsp
-        cmp-buffer
-        cmp-path
-        cmp-cmdline
-        nvim-cmp
-        cmp-vsnip
-        vim-vsnip
-      ];
+      plugins = import ./neovim/plugins.nix { inherit pkgs; };
       extraConfig = builtins.readFile ./neovim/init.vim;
       extraLuaConfig = builtins.readFile ./neovim/init.lua;
     };
@@ -190,6 +99,7 @@
       keyMode = "vi";
       aggressiveResize = true;
       terminal = "screen-256color";
+      shell = "${pkgs.bash}/bin/bash";
       # modified from
       # https://github.com/samoshkin/tmux-config/blob/master/tmux/tmux.conf
       extraConfig = builtins.readFile ./tmux.conf;
