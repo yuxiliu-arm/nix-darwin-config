@@ -102,6 +102,7 @@
         vim-surround
         tcomment_vim
         vim-nix
+        nvim-lspconfig
         {
           plugin = fzf-vim;
           config = ''
@@ -168,8 +169,18 @@
             augroup END
           '';
         }
+
+        # auto complete
+        cmp-nvim-lsp
+        cmp-buffer
+        cmp-path
+        cmp-cmdline
+        nvim-cmp
+        cmp-vsnip
+        vim-vsnip
       ];
       extraConfig = builtins.readFile ./neovim/init.vim;
+      extraLuaConfig = builtins.readFile ./neovim/init.lua;
     };
 
     programs.tmux = {

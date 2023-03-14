@@ -54,6 +54,7 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 alias sl='ls'
+alias gg='git log --graph --oneline --all'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -101,7 +102,7 @@ RED='\[\e[31m\]'
 # BLUE='\[\e[34m\]'
 DIRBLUE='\[\e[34;1m\]' # blue as is used by dircolors for dirs
 CYAN='\[\e[36m\]'
-GRAY='\[\e[37;0m\]'
+# GRAY='\[\e[37;0m\]'
 
 function color() {
   echo "$*${RESET_COLOR}"
@@ -195,8 +196,6 @@ fi
 eval "$(direnv hook bash)"
 
 # git completion
-. ${HOME}/.nix-profile/share/git/contrib/completion/git-completion.bash
-
 # bashcompletion@2, see https://github.com/scop/bash-completion#installation
 [[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
 

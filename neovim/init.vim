@@ -21,7 +21,7 @@ nnoremap <F3> :diffget //3<CR>
 " File types {{{
 au! BufRead,BufNewFile *.ipl setfiletype ipl
 au! BufRead,BufNewFile *.iml setfiletype iml
-autocmd FileType iml nnoremap <silent> <C-i> :w<CR> <bar> :silent !imlformat<CR>
+autocmd FileType iml nnoremap <silent> <leader>mf :w<CR> <bar> :silent !imlformat<CR>
 " }}}
 
 " Spaces & Tabs {{{
