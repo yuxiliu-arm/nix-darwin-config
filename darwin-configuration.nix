@@ -22,8 +22,6 @@
 
     home.packages = with pkgs;
       [
-        unzip
-
         # editors
         nixpkgs-fmt
         shellcheck
@@ -40,6 +38,8 @@
         wget
         jq
         ripgrep
+        unzip
+        tree
 
         # work
         google-cloud-sdk
