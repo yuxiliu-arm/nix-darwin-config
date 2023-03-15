@@ -118,4 +118,7 @@ with pkgs.vimPlugins; [
       lua require'coq-lsp'.setup()
     '';
   }
+
+  # rust
+  rust-tools-nvim
 ]
