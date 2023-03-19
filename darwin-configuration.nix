@@ -88,8 +88,13 @@
     programs.neovim = {
       enable = true;
       plugins = import ./neovim/plugins.nix { inherit pkgs; };
+      coc = {
+        enable = true;
+        pluginConfig = builtins.readFile ./neovim/coc.vim;
+        settings = import ./neovim/coc-settings.json.nix;
+      };
       extraConfig = builtins.readFile ./neovim/init.vim;
-      extraLuaConfig = builtins.readFile ./neovim/init.lua;
+      # extraLuaConfig = builtins.readFile ./neovim/init.lua;
     };
 
     programs.tmux = {

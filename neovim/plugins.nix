@@ -78,7 +78,7 @@ with pkgs.vimPlugins; [
   }
 
   # lsp
-  nvim-lspconfig
+  # nvim-lspconfig
   {
     plugin = fzf-vim;
     config = ''
@@ -88,37 +88,37 @@ with pkgs.vimPlugins; [
   }
 
   # auto complete
-  cmp-nvim-lsp
-  cmp-buffer
-  cmp-path
-  cmp-cmdline
-  nvim-cmp
-  cmp-vsnip
-  vim-vsnip
+  # cmp-nvim-lsp
+  # cmp-buffer
+  # cmp-path
+  # cmp-cmdline
+  # nvim-cmp
+  # cmp-vsnip
+  # vim-vsnip
 
   # Coq
   Coqtail
-  {
-    plugin = pkgs.vimUtils.buildVimPluginFrom2Nix
-      {
-        name = "coq-lsp-nvim";
-        src = pkgs.fetchFromGitHub {
-          owner = "tomtomjhj";
-          repo = "coq-lsp.nvim";
-          rev = "9235e78cba8e40675b834bc5c1d6d5187bf9973d";
-          hash = "sha256-0i6HHNkJ0KXN3/uI0fwOEYyNgeKC0Wms5/r0+Es60mY=";
-        };
-      };
-    config = ''
-      " Don't load Coqtail
-      let g:loaded_coqtail = 1
-      let g:coqtail#supported = 0
+  # {
+  #   plugin = pkgs.vimUtils.buildVimPluginFrom2Nix
+  #     {
+  #       name = "coq-lsp-nvim";
+  #       src = pkgs.fetchFromGitHub {
+  #         owner = "tomtomjhj";
+  #         repo = "coq-lsp.nvim";
+  #         rev = "9235e78cba8e40675b834bc5c1d6d5187bf9973d";
+  #         hash = "sha256-0i6HHNkJ0KXN3/uI0fwOEYyNgeKC0Wms5/r0+Es60mY=";
+  #       };
+  #     };
+  #   config = ''
+  #     " Don't load Coqtail
+  #     let g:loaded_coqtail = 1
+  #     let g:coqtail#supported = 0
+  #
+  #     " Setup coq-lsp.nvim
+  #     lua require'coq-lsp'.setup()
+  #   '';
+  # }
 
-      " Setup coq-lsp.nvim
-      lua require'coq-lsp'.setup()
-    '';
-  }
-
-  # rust
-  rust-tools-nvim
+  # # rust
+  # rust-tools-nvim
 ]
