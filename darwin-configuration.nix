@@ -1,6 +1,10 @@
 { config, pkgs, ... }:
 
 {
+  nix.extraOptions = ''
+    experimental-features = nix-command flakes
+  '';
+
   imports = [ <home-manager/nix-darwin> ];
 
   users.users.yuxi =
