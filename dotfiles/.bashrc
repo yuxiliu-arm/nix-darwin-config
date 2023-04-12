@@ -194,3 +194,6 @@ fi
 
 # direnv hook
 eval "$(direnv hook bash)"
+
+# ghcup
+source /Users/yuxi/.ghcup/env
