@@ -4,6 +4,7 @@ with pkgs.vimPlugins; [
   vim-fugitive
   vim-repeat
   vim-surround
+  vim-unimpaired
   tcomment_vim
   vim-nix
 

@@ -18,6 +18,10 @@ command Xa xa
 nnoremap <F2> :diffget //2<CR>
 nnoremap <F3> :diffget //3<CR>
 
+" history scroller (from Practical Vim)
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
+
 " File types {{{
 au! BufRead,BufNewFile *.ipl setfiletype ipl
 au! BufRead,BufNewFile *.iml setfiletype iml
