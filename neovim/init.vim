@@ -100,3 +100,7 @@ call tcomment#type#Define('iml',            '(* %s *)'         )
 call tcomment#type#Define('iml_block',      "(*%s*)\n   "      )
 call tcomment#type#Define('iml_inline',     '(* %s *)'         )
 " }}} IML comment
+
+" lean.nvim {
+let maplocalleader = "\<Space>"
+" }

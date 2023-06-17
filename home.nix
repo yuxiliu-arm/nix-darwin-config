@@ -121,6 +121,9 @@
       ".config/nvim/syntax/ipl.vim".source = ocaml-syntax;
       ".config/nvim/syntax/iml.vim".source = ocaml-syntax;
 
+      # lean.nvim
+      ".config/nvim/plugin/lean.lua".source = ./neovim/lean.lua;
+
       ".inputrc".source = ./dotfiles/.inputrc;
       ".direnvrc".source = ./dotfiles/.direnvrc;
     };

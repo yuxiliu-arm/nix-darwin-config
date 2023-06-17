@@ -9,6 +9,21 @@ with pkgs.vimPlugins; [
   vim-nix
   vim-dispatch
 
+  # lean.nvim {
+  lean-nvim
+  nvim-lspconfig
+  plenary-nvim
+
+  # Optional Dependencies:
+
+  nvim-cmp # For LSP completion
+  cmp-nvim-lsp
+  cmp-buffer
+  vim-vsnip # For snippets
+  switch-vim # For Lean switch support
+  # tcomment_vim # For commenting motions
+  # } lean.nvim
+
   # ui
   vim-airline
   {
