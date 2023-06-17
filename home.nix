@@ -40,6 +40,9 @@
 
       # rust
       cargo
+
+      # lean
+      elan
     ];
 
   programs.direnv = {

@@ -7,6 +7,7 @@ with pkgs.vimPlugins; [
   vim-unimpaired
   tcomment_vim
   vim-nix
+  vim-dispatch
 
   # ui
   vim-airline
