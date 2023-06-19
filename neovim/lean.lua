@@ -7,19 +7,37 @@
 vim.opt.signcolumn = "yes:1"
 
 -- Enable nvim-cmp, with 3 completion sources, including LSP
+local luasnip = require("luasnip")
 local cmp = require'cmp'
 cmp.setup{
     mapping = cmp.mapping.preset.insert({
-      ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-      ['<C-f>'] = cmp.mapping.scroll_docs(4),
-      ['<C-Space>'] = cmp.mapping.complete(),
-      ['<C-e>'] = cmp.mapping.abort(),
-      ['<CR>'] = cmp.mapping.confirm({ select = true }),
+        ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-f>'] = cmp.mapping.scroll_docs(4),
+        ['<C-e>'] = cmp.mapping.abort(),
+        ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+        ['<Tab>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.select_next_item()
+            elseif luasnip.expand_or_jumpable() then
+                luasnip.expand_or_jump()
+            else
+                fallback()
+            end
+        end, { 'i', 's' }),
+        ['<S-Tab>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.select_prev_item()
+            elseif luasnip.jumpable(-1) then
+                luasnip.jump(-1)
+            else
+                fallback()
+            end
+        end, { 'i', 's' }),
     }),
     sources = cmp.config.sources({
-      { name = 'nvim_lsp' },
-      { name = 'path' },
-      { name = 'buffer' },
+        { name = 'nvim_lsp' },
+        { name = 'path' },
+        { name = 'buffer' },
     })
 }
 
@@ -34,7 +52,7 @@ cmp.setup{
 -- within Lean files.
 local function on_attach(_, bufnr)
     local function cmd(mode, lhs, rhs)
-      vim.keymap.set(mode, lhs, rhs, { noremap = true, buffer = true })
+        vim.keymap.set(mode, lhs, rhs, { noremap = true, buffer = true })
     end
 
     -- Autocomplete using the Lean language server
@@ -45,10 +63,10 @@ local function on_attach(_, bufnr)
     -- K in normal mode will show the definition of what's under the cursor
     cmd('n', 'K', vim.lsp.buf.hover)
 
-    -- <leader>n will jump to the next Lean line with a diagnostic message on it
-    -- <leader>N will jump backwards
-    cmd('n', '<leader>n', function() vim.lsp.diagnostic.goto_next{popup_opts = {show_header = false}} end)
-    cmd('n', '<leader>N', function() vim.lsp.diagnostic.goto_prev{popup_opts = {show_header = false}} end)
+    cmd('n', '<space>e', vim.diagnostic.open_float)
+    cmd('n', '[d', vim.diagnostic.goto_prev)
+    cmd('n', ']d', vim.diagnostic.goto_next)
+    cmd('n', '<space>q', vim.diagnostic.setloclist)
 
     -- <leader>K will show all diagnostics for the current line in a popup window
     cmd('n', '<leader>K', function() vim.lsp.diagnostic.show_line_diagnostics{show_header = false} end)
@@ -69,9 +87,9 @@ require('lean').setup{
 
 -- Update error messages even while you're typing in insert mode
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
+vim.lsp.diagnostic.on_publish_diagnostics, {
     underline = true,
     virtual_text = { spacing = 4 },
     update_in_insert = true,
-  }
+}
 )

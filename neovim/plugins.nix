@@ -10,12 +10,18 @@ with pkgs.vimPlugins; [
   vim-dispatch
 
   # lean.nvim {
-  lean-nvim
+  {
+    plugin = lean-nvim;
+    config = ''
+      autocmd FileType lean,iml let b:coc_enabled = 0
+    '';
+  }
   nvim-lspconfig
   plenary-nvim
 
   # Optional Dependencies:
 
+  luasnip
   nvim-cmp # For LSP completion
   cmp-nvim-lsp
   cmp-buffer
