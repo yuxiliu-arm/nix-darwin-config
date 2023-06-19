@@ -14,6 +14,7 @@ with pkgs.vimPlugins; [
     plugin = lean-nvim;
     config = ''
       autocmd FileType lean,iml let b:coc_enabled = 0
+      autocmd FileType ocaml lua vim.diagnostic.disable()
     '';
   }
   nvim-lspconfig
