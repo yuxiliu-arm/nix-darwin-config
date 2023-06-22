@@ -41,6 +41,12 @@ cmp.setup{
     })
 }
 
+local function fzf_table(sources)
+    table.foreach(sources, function (k, v) sources[k] = vim.fn.shellescape(v) end)
+    local query = table.concat(sources, ' ')
+    vim.fn['fzf#vim#grep']("rg --column --line-number --no-heading --color=always --smart-case -g '*.lean' -- '' " .. query, 1, vim.fn['fzf#vim#with_preview'](), 0)
+end
+
 -- You may want to reference the nvim-cmp documentation for further
 -- configuration of completion: https://github.com/hrsh7th/nvim-cmp#recommended-configuration
 
@@ -66,15 +72,15 @@ local function on_attach(_, bufnr)
     cmd('n', '<space>e', vim.diagnostic.open_float)
     cmd('n', '[d', vim.diagnostic.goto_prev)
     cmd('n', ']d', vim.diagnostic.goto_next)
+
+    -- <space>q will load all errors in the current lean file into the location list
+    -- (and then will open the location list)
     cmd('n', '<space>q', vim.diagnostic.setloclist)
 
     -- <leader>K will show all diagnostics for the current line in a popup window
     cmd('n', '<leader>K', function() vim.lsp.diagnostic.show_line_diagnostics{show_header = false} end)
 
-    -- <leader>q will load all errors in the current lean file into the location list
-    -- (and then will open the location list)
-    -- see :h location-list if you don't generally use it in other vim contexts
-    -- cmd('n', '<leader>q', vim.lsp.diagnostic.set_loclist)
+    cmd('n', '<space>g', function() fzf_table(require'lean'.current_search_paths()) end)
 end
 
 -- Enable lean.nvim, and enable abbreviations and mappings
