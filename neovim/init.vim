@@ -104,3 +104,8 @@ call tcomment#type#Define('iml_inline',     '(* %s *)'         )
 " lean.nvim {
 let maplocalleader = "\<Space>"
 " }
+
+" merlin {
+let g:opamshare = substitute(system('opam var share'),'\n$','','''')
+execute "set rtp+=" . g:opamshare . "/merlin/vim"
+" }
