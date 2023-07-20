@@ -26,6 +26,7 @@ with pkgs.vimPlugins; [
   nvim-cmp # For LSP completion
   cmp-nvim-lsp
   cmp-buffer
+  cmp-omni
   vim-vsnip # For snippets
   switch-vim # For Lean switch support
   # tcomment_vim # For commenting motions
@@ -61,6 +62,7 @@ with pkgs.vimPlugins; [
       let g:syntastic_auto_loc_list = 2
       let g:syntastic_check_on_open = 1
       let g:syntastic_check_on_wq = 0
+      let g:syntastic_iml_checkers = ['ocaml/merlin']
     '';
   }
   {
