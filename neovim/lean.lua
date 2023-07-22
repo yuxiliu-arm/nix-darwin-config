@@ -70,7 +70,8 @@ cmp.setup.filetype('iml', {
         autocomplete = { require('cmp.types').cmp.TriggerEvent.TextChanged },
         keyword_length = 4
       },
-    }
+    },
+    { name = 'buffer' }
   })
 })
 
