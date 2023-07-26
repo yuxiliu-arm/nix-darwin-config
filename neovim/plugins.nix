@@ -27,6 +27,7 @@ with pkgs.vimPlugins; [
   cmp-nvim-lsp
   cmp-buffer
   cmp-omni
+  cmp-cmdline
   vim-vsnip # For snippets
   switch-vim # For Lean switch support
   # tcomment_vim # For commenting motions
