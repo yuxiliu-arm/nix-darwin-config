@@ -34,6 +34,7 @@
       google-cloud-sdk
       cloud-sql-proxy
       terraform
+      entr
 
       # ocaml
       opam
