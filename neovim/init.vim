@@ -108,4 +108,5 @@ let maplocalleader = "\<Space>"
 " merlin {
 let g:opamshare = substitute(system('opam var share'),'\n$','','''')
 execute "set rtp+=" . g:opamshare . "/merlin/vim"
+let g:merlin_split_method = "never"
 " }

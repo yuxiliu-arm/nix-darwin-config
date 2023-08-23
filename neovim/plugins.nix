@@ -80,6 +80,7 @@ with pkgs.vimPlugins; [
                   \ 'stdin': 1,
                   \ }
       let g:neoformat_enabled_nix = ['nixpkgsfmt']
+      let g:neoformat_enabled_lua = ['luaformat']
 
       function SetIndent(enable)
           " Enable alignment
@@ -97,9 +98,12 @@ with pkgs.vimPlugins; [
       augroup END
       augroup fmt
           autocmd!
-          autocmd FileType cuda,c,cpp,haskell,nix,cabal,python,ocaml,reason,rust
+          autocmd FileType cuda,c,cpp,haskell,nix,cabal,python,ocaml,reason,rust,lua
               \ autocmd BufWritePre <buffer> silent! Neoformat |
               \ call SetIndent(1)
+          " no formatter, just remove trailing spaces
+          autocmd FileType lean
+              \ autocmd BufWritePre <buffer> silent! %s/\s\+$//
       augroup END
     '';
   }
