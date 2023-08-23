@@ -35,6 +35,7 @@
       cloud-sql-proxy
       terraform
       entr
+      util-linux # for setsid
 
       # ocaml
       opam
