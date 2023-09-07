@@ -130,7 +130,8 @@
 
       # lean.nvim
       ".config/nvim/plugin/lean.lua".source = ./neovim/lean.lua;
-      ".config/nvim/ftplugin/ocaml.lua".source = ./neovim/ocaml.lua;
+      ".config/nvim/ftplugin/iml.vim".source = ./neovim/ftplugin/iml.vim;
+      ".config/nvim/ftplugin/ocaml.lua".source = ./neovim/ftplugin/ocaml.lua;
 
       ".inputrc".source = ./dotfiles/.inputrc;
       ".direnvrc".source = ./dotfiles/.direnvrc;
