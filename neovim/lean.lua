@@ -8,13 +8,13 @@ vim.opt.signcolumn = "yes:1"
 
 -- Enable nvim-cmp, with 3 completion sources, including LSP
 local luasnip = require("luasnip")
-local cmp = require'cmp'
-cmp.setup{
+local cmp = require 'cmp'
+cmp.setup {
     mapping = cmp.mapping.preset.insert({
         ['<C-b>'] = cmp.mapping.scroll_docs(-4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<C-e>'] = cmp.mapping.abort(),
-        ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+        ['<C-y>'] = cmp.mapping.confirm({select = true}),
         ['<Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_next_item()
@@ -23,7 +23,7 @@ cmp.setup{
             else
                 fallback()
             end
-        end, { 'i', 's' }),
+        end, {'i', 's'}),
         ['<S-Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_prev_item()
@@ -32,47 +32,39 @@ cmp.setup{
             else
                 fallback()
             end
-        end, { 'i', 's' }),
+        end, {'i', 's'})
     }),
     sources = cmp.config.sources({
-        { name = 'nvim_lsp' },
-        { name = 'path' },
-        { name = 'buffer' },
+        {name = 'nvim_lsp'}, {name = 'path'}, {name = 'buffer'}
     })
 }
 
 -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline({ '/', '?' }, {
-  mapping = cmp.mapping.preset.cmdline(),
-  sources = {
-    { name = 'buffer' }
-  }
+cmp.setup.cmdline({'/', '?'}, {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {{name = 'buffer'}}
 })
 
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(':', {
-  mapping = cmp.mapping.preset.cmdline(),
-  sources = cmp.config.sources({
-    { name = 'path' }
-  }, {
-    { name = 'cmdline' }
-  })
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({{name = 'path'}}, {{name = 'cmdline'}})
 })
 
 cmp.setup.filetype('iml', {
-  sources = cmp.config.sources({
-    { name = 'omni',
-      trigger_characters = {'.'},
-      option = {
-        disable_omnifuncs = { 'v:lua.vim.lsp.omnifunc' }
-      },
-      completion = {
-        autocomplete = { require('cmp.types').cmp.TriggerEvent.TextChanged },
-        keyword_length = 4
-      },
-    },
-    { name = 'buffer' }
-  })
+    sources = cmp.config.sources({
+        {
+            name = 'omni',
+            trigger_characters = {'.'},
+            option = {disable_omnifuncs = {'v:lua.vim.lsp.omnifunc'}},
+            completion = {
+                autocomplete = {
+                    require('cmp.types').cmp.TriggerEvent.TextChanged
+                },
+                keyword_length = 4
+            }
+        }, {name = 'buffer'}
+    })
 })
 
 -- Trigger on empty, too janky
@@ -101,9 +93,11 @@ cmp.setup.filetype('iml', {
 -- })
 
 local function fzf_table(sources)
-    table.foreach(sources, function (k, v) sources[k] = vim.fn.shellescape(v) end)
+    table.foreach(sources, function(k, v) sources[k] = vim.fn.shellescape(v) end)
     local query = table.concat(sources, ' ')
-    vim.fn['fzf#vim#grep']("rg --column --line-number --no-heading --color=always --smart-case -g '*.lean' -- '' " .. query, 1, vim.fn['fzf#vim#with_preview'](), 0)
+    vim.fn['fzf#vim#grep'](
+        "rg --column --line-number --no-heading --color=always --smart-case -g '*.lean' -- '' " ..
+            query, 1, vim.fn['fzf#vim#with_preview'](), 0)
 end
 
 -- You may want to reference the nvim-cmp documentation for further
@@ -117,7 +111,7 @@ end
 -- within Lean files.
 local function on_attach(_, bufnr)
     local function cmd(mode, lhs, rhs)
-        vim.keymap.set(mode, lhs, rhs, { noremap = true, buffer = true })
+        vim.keymap.set(mode, lhs, rhs, {noremap = true, buffer = true})
     end
 
     -- Autocomplete using the Lean language server
@@ -137,54 +131,56 @@ local function on_attach(_, bufnr)
     cmd('n', '<space>q', vim.diagnostic.setloclist)
 
     -- <leader>K will show all diagnostics for the current line in a popup window
-    cmd('n', '<leader>K', function() vim.lsp.diagnostic.show_line_diagnostics{show_header = false} end)
+    cmd('n', '<leader>K', function()
+        vim.lsp.diagnostic.show_line_diagnostics {show_header = false}
+    end)
 
-    cmd('n', '<space>g', function() fzf_table(require'lean'.current_search_paths()) end)
+    cmd('n', '<space>g',
+        function() fzf_table(require'lean'.current_search_paths()) end)
 end
 
 -- Enable lean.nvim, and enable abbreviations and mappings
-require('lean').setup{
-    abbreviations = { builtin = true },
-    lsp = { on_attach = on_attach },
-    lsp3 = { on_attach = on_attach },
-    mappings = true,
+require('lean').setup {
+    abbreviations = {builtin = true},
+    lsp = {on_attach = on_attach},
+    lsp3 = {on_attach = on_attach},
+    mappings = true
 }
 
 -- Update error messages even while you're typing in insert mode
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-vim.lsp.diagnostic.on_publish_diagnostics, {
-    underline = true,
-    virtual_text = { spacing = 4 },
-    update_in_insert = true,
-}
-)
+vim.lsp.handlers["textDocument/publishDiagnostics"] =
+    vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+        underline = true,
+        virtual_text = {spacing = 4},
+        update_in_insert = true
+    })
 
 -- See https://github.com/theHamsta/nvim-semantic-tokens/blob/master/doc/nvim-semantic-tokens.txt
 local mappings = {
-  LspKeyword = "@keyword",
-  LspVariable = "@variable",
-  LspNamespace = "@namespace",
-  LspType = "@type",
-  LspClass = "@type.builtin",
-  LspEnum = "@constant",
-  LspInterface = "@type.definition",
-  LspStruct = "@structure",
-  LspTypeParameter = "@type.definition",
-  LspParameter = "@parameter",
-  LspProperty = "@property",
-  LspEnumMember = "@field",
-  LspEvent = "@variable",
-  LspFunction = "@function",
-  LspMethod = "@method",
-  LspMacro = "@macro",
-  LspModifier = "@keyword.function",
-  LspComment = "@comment",
-  LspString = "@string",
-  LspNumber = "@number",
-  LspRegexp = "@string.special",
-  LspOperator = "@operator",
+    LspKeyword = "@keyword",
+    LspVariable = "@variable",
+    LspNamespace = "@namespace",
+    LspType = "@type",
+    LspClass = "@type.builtin",
+    LspEnum = "@constant",
+    LspInterface = "@type.definition",
+    LspStruct = "@structure",
+    LspTypeParameter = "@type.definition",
+    LspParameter = "@parameter",
+    LspProperty = "@property",
+    LspEnumMember = "@field",
+    LspEvent = "@variable",
+    LspFunction = "@function",
+    LspMethod = "@method",
+    LspMacro = "@macro",
+    LspModifier = "@keyword.function",
+    LspComment = "@comment",
+    LspString = "@string",
+    LspNumber = "@number",
+    LspRegexp = "@string.special",
+    LspOperator = "@operator"
 }
 
 for from, to in pairs(mappings) do
-  vim.cmd.highlight('link ' .. from .. ' ' .. to)
+    vim.cmd.highlight('link ' .. from .. ' ' .. to)
 end
