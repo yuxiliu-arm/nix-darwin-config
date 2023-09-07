@@ -1,6 +1,6 @@
 {
   "suggest.noselect" = true;
-  "codeLens.enable" = true;
+  "codeLens.enable" = false;
   "languageserver" = {
     "ocaml" = {
       "command" = "opam";
