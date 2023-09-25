@@ -160,3 +160,7 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 " Restart.
 nnoremap <silent><nowait> <space>r  :<C-u>CocRestart<CR>
+
+" https://github.com/neoclide/coc.nvim/issues/1046
+autocmd ColorScheme *
+      \ hi CocUnusedHighlight ctermbg=NONE guibg=NONE guifg=#808080
