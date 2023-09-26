@@ -1,6 +1,8 @@
 { config, pkgs, ... }:
 
 {
+
+  # nixpkgs.hostPlatform = "aarch64-darwin";
   nix.extraOptions = ''
     experimental-features = nix-command flakes
 
@@ -14,15 +16,13 @@
     # }
   '';
 
-  imports = [ <home-manager/nix-darwin> ];
-
   users.users.yuxi =
     {
       name = "yuxi";
       home = "/Users/yuxi";
     };
 
-  home-manager.users.yuxi = import ./home.nix { inherit pkgs; };
+  # home-manager.users.yuxi = import ./home.nix { inherit pkgs; };
 
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget

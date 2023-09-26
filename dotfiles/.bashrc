@@ -189,9 +189,6 @@ else
   bind -m vi-insert -x '"\C-n": fzf-nvim-widget'
 fi
 
-# source nix
-. $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
-
 # direnv hook
 eval "$(direnv hook bash)"
 
