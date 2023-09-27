@@ -51,22 +51,22 @@ cmp.setup.cmdline(':', {
     sources = cmp.config.sources({{name = 'path'}}, {{name = 'cmdline'}})
 })
 
--- cmp.setup.filetype('iml', {
---     sources = cmp.config.sources({
---         {
---             name = 'omni',
---             trigger_characters = {'.'},
---             option = {disable_omnifuncs = {'v:lua.vim.lsp.omnifunc'}},
---             completion = {
---                 autocomplete = {
---                     require('cmp.types').cmp.TriggerEvent.TextChanged
---                 },
---                 keyword_length = 4
---             }
---         }
---         -- {name = 'buffer'}
---     })
--- })
+cmp.setup.filetype('iml', {
+    sources = cmp.config.sources({
+        {
+            name = 'omni',
+            trigger_characters = {'.'},
+            option = {disable_omnifuncs = {'v:lua.vim.lsp.omnifunc'}},
+            completion = {
+                autocomplete = {
+                    require('cmp.types').cmp.TriggerEvent.TextChanged
+                },
+                keyword_length = 4
+            }
+        }
+        -- {name = 'buffer'}
+    })
+})
 
 -- Trigger on empty, too janky
 -- https://github.com/hrsh7th/nvim-cmp/issues/519#issuecomment-1091109258
