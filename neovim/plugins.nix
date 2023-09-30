@@ -9,6 +9,8 @@ with pkgs.vimPlugins; [
   vim-nix
   vim-dispatch
 
+  # nvim-treesitter.withAllGrammars
+
   # lean.nvim {
   {
     plugin = lean-nvim;

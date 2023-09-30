@@ -15,6 +15,11 @@
       nixpkgs-fmt
       shellcheck
 
+      # lvim
+      nodejs
+      lazygit
+      tree-sitter
+
       # tmux
       tmux-mem-cpu-load
 

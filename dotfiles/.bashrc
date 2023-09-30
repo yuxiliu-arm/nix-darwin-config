@@ -189,8 +189,40 @@ else
   bind -m vi-insert -x '"\C-n": fzf-nvim-widget'
 fi
 
+__fzf_lvim__() {
+  local cmd="${FZF_CTRL_T_COMMAND:-"command find -L . -mindepth 1 \\( -path '*/\\.*' -o -fstype 'sysfs' -o -fstype 'devfs' -o -fstype 'devtmpfs' -o -fstype 'proc' \\) -prune \
+    -o -type f -print \
+    -o -type d -print \
+    -o -type l -print 2> /dev/null | cut -b3-"}"
+  eval "$cmd" | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse --bind=ctrl-z:ignore $FZF_DEFAULT_OPTS $FZF_CTRL_T_OPTS" $(__fzfcmd) -m "$@" | while read -r item; do
+    printf 'lvim %q ' "$item"
+  done
+  echo
+}
+
+fzf-lvim-widget() {
+  local lvim_selected="$(__fzf_lvim__)"
+  READLINE_LINE="${READLINE_LINE:0:$READLINE_POINT}$lvim_selected${READLINE_LINE:$READLINE_POINT}"
+  READLINE_POINT=$(( READLINE_POINT + ${#lvim_selected} ))
+}
+
+if (( BASH_VERSINFO[0] < 4 )); then
+  # C-l - use lvim to edit the selected file
+  bind -m emacs-standard '"\C-l": " \C-b\C-k \C-u`__fzf_lvim__`\e\C-e\er\C-a\C-y\C-h\C-e\e \C-y\ey\C-x\C-x\C-f"'
+  bind -m vi-command '"\C-l": "\C-z\C-n\C-z"'
+  bind -m vi-insert '"\C-l": "\C-z\C-n\C-z"'
+
+else
+  # C-l - use lvim to edit the selected file
+  bind -m emacs-standard -x '"\C-l": fzf-lvim-widget'
+  bind -m vi-command -x '"\C-l": fzf-lvim-widget'
+  bind -m vi-insert -x '"\C-l": fzf-lvim-widget'
+fi
+
 # direnv hook
 eval "$(direnv hook bash)"
 
 # ghcup
 source /Users/yuxi/.ghcup/env
+
+export PATH="${HOME}/.cargo/bin:${HOME}/.npm-global/bin:${HOME}/.local/bin:${PATH}"
