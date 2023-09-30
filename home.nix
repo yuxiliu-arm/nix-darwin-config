@@ -46,7 +46,7 @@
       opam
 
       # rust
-      cargo
+      rustup
 
       # lean
       elan
