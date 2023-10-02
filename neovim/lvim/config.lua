@@ -27,6 +27,21 @@ vim.filetype.add({
   },
 })
 
+
+-- override ocamlformat for iml files
+vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
+  pattern = { "*.iml" },
+  callback = function()
+    local null_ls = require("null-ls")
+    local sources = {
+      null_ls.builtins.formatting.ocamlformat.with({
+        extra_args = { "--impl" },
+      })
+    }
+    null_ls.setup({ sources = sources })
+  end,
+})
+
 -- }
 
 -- Key bindings {
