@@ -20,6 +20,47 @@ vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers,
     "rust-analyzer",
   })
 lvim.format_on_save.enabled = true
+
+vim.filetype.add({
+  extension = {
+    iml = "ocaml",
+  },
+})
+
+-- }
+
+-- Key bindings {
+
+--typos for save and quit {
+
+---Add an alias to a 0-argument command
+---@param alias string
+---@param cmd function
+local add_alias_to_cmd = function(alias, cmd)
+  vim.api.nvim_create_user_command(alias,
+    function(_)
+      cmd()
+    end,
+    { nargs = 0 })
+end
+add_alias_to_cmd("WQ", vim.cmd.wq)
+add_alias_to_cmd("Wq", vim.cmd.wq)
+add_alias_to_cmd("W", vim.cmd.w)
+add_alias_to_cmd("Q", vim.cmd.q)
+add_alias_to_cmd("X", vim.cmd.x)
+add_alias_to_cmd("Xa", vim.cmd.xa)
+-- }
+
+-- which_key {
+lvim.builtin.which_key.mappings["H"] = {
+  name = "Hop",
+  f = { "<cmd>HopChar1<cr>", "HopChar1" },
+  j = { "<cmd>HopVertical<cr>", "HopVertical" },
+  k = { "<cmd>HopVertical<cr>", "HopVertical" },
+  w = { "<cmd>HopWord<cr>", "HopWord" },
+}
+-- }
+
 -- }
 
 -- Appearance {
@@ -57,8 +98,18 @@ lvim.plugins = {
     "simrat39/rust-tools.nvim",
     -- ft = { "rust", "rs" },
   },
+  {
+    'phaazon/hop.nvim',
+    branch = 'v2', -- optional but strongly recommended
+    config = function()
+      -- you can configure Hop the way you like here; see :h hop-config
+      require 'hop'.setup()
+    end
+  },
 }
 
 -- nvim options {
 vim.o.wrap = true
+vim.o.wildmenu = true -- visual autocomplete for command menu
+vim.o.wildmode = "longest:full,full"
 -- }
