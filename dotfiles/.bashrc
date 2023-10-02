@@ -80,8 +80,8 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# set defualt editor to neovim
-export VISUAL=nvim
+# set defualt editor to lunarvim
+export VISUAL=lvim
 export EDITOR="$VISUAL"
 
 # use `socks` prefix to execute commands via socks proxy
