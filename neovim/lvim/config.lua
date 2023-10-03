@@ -94,6 +94,7 @@ lvim.plugins = {
       })
     end
   },
+  "tpope/vim-unimpaired",
   {
     "Julian/lean.nvim",
     event = { "BufReadPre *.lean", "BufNewFile *.lean" },
