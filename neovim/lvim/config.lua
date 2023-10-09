@@ -12,7 +12,8 @@ lvim.builtin.treesitter.ensure_installed = {
   "yaml",
   "ocaml",
   "haskell",
-  "c"
+  "c",
+  "ledger",
 }
 vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers,
   {
@@ -67,12 +68,16 @@ add_alias_to_cmd("Xa", vim.cmd.xa)
 -- }
 
 -- which_key {
-lvim.builtin.which_key.mappings["H"] = {
+lvim.builtin.which_key.mappings["j"] = {
   name = "Hop",
   f = { "<cmd>HopChar1<cr>", "HopChar1" },
   j = { "<cmd>HopVertical<cr>", "HopVertical" },
   k = { "<cmd>HopVertical<cr>", "HopVertical" },
   w = { "<cmd>HopWord<cr>", "HopWord" },
+}
+
+lvim.builtin.which_key.mappings.b.d = {
+  "<cmd>bdelete<cr>", "Close Buffer",
 }
 -- }
 
@@ -115,12 +120,16 @@ lvim.plugins = {
     -- ft = { "rust", "rs" },
   },
   {
-    'phaazon/hop.nvim',
-    branch = 'v2', -- optional but strongly recommended
+    "phaazon/hop.nvim",
+    branch = "v2", -- optional but strongly recommended
     config = function()
       -- you can configure Hop the way you like here; see :h hop-config
-      require 'hop'.setup()
+      require "hop".setup()
     end
+  },
+  {
+    "ledger/vim-ledger",
+    ft = { "ledger" },
   },
 }
 
@@ -128,4 +137,5 @@ lvim.plugins = {
 vim.o.wrap = true
 vim.o.wildmenu = true -- visual autocomplete for command menu
 vim.o.wildmode = "longest:full,full"
+vim.o.textwidth = 80
 -- }
