@@ -30,7 +30,12 @@ vim.filetype.add({
 
 
 -- override ocamlformat for iml files
-vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
+vim.api.nvim_create_autocmd({
+  "BufReadPre",
+  "BufEnter",
+  "BufNewFile",
+  "BufNew",
+}, {
   pattern = { "*.iml" },
   callback = function()
     local null_ls = require("null-ls")
@@ -134,8 +139,28 @@ lvim.plugins = {
 }
 
 -- nvim options {
-vim.o.wrap = true
-vim.o.wildmenu = true -- visual autocomplete for command menu
-vim.o.wildmode = "longest:full,full"
-vim.o.textwidth = 80
+vim.opt.wrap = true
+vim.opt.wildmenu = true -- visual autocomplete for command menu
+vim.opt.wildmode = "longest:full,full"
+vim.opt.textwidth = 80
+
+-- do not wrap in insert mode
+vim.api.nvim_create_autocmd({
+  "BufReadPre",
+  "BufEnter",
+  "BufNewFile",
+  "BufNew",
+}, {
+  pattern = { "*" },
+  command = "setlocal formatoptions-=t",
+})
+-- folding {
+-- use treesitter folding
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+
+-- do not fold by default
+vim.opt.foldenable = false
+-- }
+
 -- }
