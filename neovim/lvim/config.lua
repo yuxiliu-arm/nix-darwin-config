@@ -136,6 +136,13 @@ lvim.plugins = {
     "ledger/vim-ledger",
     ft = { "ledger" },
   },
+  {
+    "johmsalas/text-case.nvim",
+    keys = "ga",
+    config = function()
+      require("textcase").setup {}
+    end
+  },
 }
 
 -- nvim options {
