@@ -32,12 +32,17 @@ vim.filetype.add({
 -- override ocamlformat for iml files
 vim.api.nvim_create_autocmd({
   "BufReadPre",
+  "BufRead",
   "BufEnter",
   "BufNewFile",
   "BufNew",
 }, {
   pattern = { "*.iml" },
   callback = function()
+    -- options
+    vim.opt.foldmethod = "indent"
+
+    -- ocamllsp extra arg
     local null_ls = require("null-ls")
     local sources = {
       null_ls.builtins.formatting.ocamlformat.with({
@@ -84,6 +89,17 @@ lvim.builtin.which_key.mappings["j"] = {
 lvim.builtin.which_key.mappings.b.d = {
   "<cmd>bdelete<cr>", "Close Buffer",
 }
+
+lvim.builtin.which_key.mappings["h"] = {}
+
+lvim.builtin.which_key.mappings.h.h = {
+  "<cmd>noh<cr>", "No highlight",
+}
+
+lvim.builtin.which_key.mappings.h.l = {
+  "<cmd>edit /Users/yuxi/.hledger.journal<cr>",
+  "Edit hledger journal",
+}
 -- }
 
 -- }
@@ -114,7 +130,15 @@ lvim.plugins = {
       "nvim-lua/plenary.nvim",
       -- you also will likely want nvim-cmp or some completion engine
     },
-    opts = { mappings = true }
+    opts = {
+      mappings = true,
+      lsp = {
+        on_attach = require("lvim.lsp").common_on_attach,
+        on_init = require("lvim.lsp").common_on_init,
+        on_exit = require("lvim.lsp").common_on_exit,
+        capabilities = require("lvim.lsp").common_capabilities(),
+      },
+    },
   },
   {
     "tanvirtin/monokai.nvim",
