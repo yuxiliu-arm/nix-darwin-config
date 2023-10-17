@@ -78,7 +78,7 @@ add_alias_to_cmd("Xa", vim.cmd.xa)
 -- }
 
 -- toggleterminal {
-lvim.keys.term_mode["<esc>"] = "<C-\\><C-n>"
+lvim.keys.term_mode["<C-t><C-n>"] = "<C-\\><C-n>"
 -- }
 
 -- which_key {
