@@ -77,6 +77,10 @@ add_alias_to_cmd("X", vim.cmd.x)
 add_alias_to_cmd("Xa", vim.cmd.xa)
 -- }
 
+-- toggleterminal {
+lvim.keys.term_mode["<esc>"] = "<C-\\><C-n>"
+-- }
+
 -- which_key {
 lvim.builtin.which_key.mappings["j"] = {
   name = "Hop",
@@ -185,6 +189,46 @@ vim.api.nvim_create_autocmd({
   pattern = { "*" },
   command = "setlocal formatoptions-=t",
 })
+
+local is_cmp_single_buffer = true
+-- toggle auto completion from all buffers
+-- https://github.com/LunarVim/LunarVim/issues/4204
+-- also https://github.com/hrsh7th/nvim-cmp/discussions/670
+-- since setting lvim.builtin.cmp.sources doesn't reload cmp
+local toggle_cmp_all_buffers = function()
+  local cmp = require('cmp')
+  local config = cmp.get_config()
+  local new_sources = vim.tbl_filter(function(source)
+    return source.name ~= "buffer"
+  end, config.sources)
+  if is_cmp_single_buffer then
+    vim.list_extend(new_sources, {
+      {
+        name = "buffer",
+        priority_weight = 2,
+        max_item_count = 5,
+        option = {
+          keyword_length = 2,
+          get_bufnrs = function()
+            return vim.api.nvim_list_bufs()
+          end
+        }
+      },
+    })
+  else
+    vim.list_extend(new_sources, {
+      {
+        name = "buffer",
+        option = {
+        }
+      },
+    })
+  end
+  config.sources = new_sources
+  cmp.setup(config)
+end
+vim.api.nvim_create_user_command("CmpToggleAllBuffers", toggle_cmp_all_buffers, {})
+
 -- folding {
 -- use treesitter folding
 vim.opt.foldmethod = "expr"
