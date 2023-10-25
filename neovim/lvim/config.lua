@@ -20,7 +20,10 @@ vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers,
     "ocamllsp",
     "rust-analyzer",
   })
-lvim.format_on_save.enabled = true
+lvim.format_on_save = {
+  enabled = true,
+  pattern = "*.ml,*.iml,dune,*.lua,*.lean",
+}
 
 vim.filetype.add({
   extension = {
@@ -110,6 +113,21 @@ lvim.builtin.which_key.mappings.h.l = {
 
 -- Appearance {
 lvim.colorscheme = "monokai_pro"
+lvim.autocommands = {
+  {
+    { "ColorScheme" },
+    {
+      pattern = "*",
+      callback = function()
+        -- adjust type hint colors
+        local monokai = require('monokai')
+        local palette = monokai.pro
+        vim.api.nvim_set_hl(0, "LspCodeLens", { fg = palette.grey, bg = palette.base2 })
+      end,
+    },
+  },
+}
+
 -- }
 
 -- Additional plugins
@@ -186,8 +204,7 @@ vim.api.nvim_create_autocmd({
   "BufNewFile",
   "BufNew",
 }, {
-  pattern = { "*" },
-  command = "setlocal formatoptions-=t",
+  command = "setlocal formatoptions=jroql",
 })
 
 local is_cmp_single_buffer = true
@@ -205,7 +222,7 @@ local toggle_cmp_all_buffers = function()
     vim.list_extend(new_sources, {
       {
         name = "buffer",
-        priority_weight = 2,
+        priority_weight = 50,
         max_item_count = 5,
         option = {
           keyword_length = 2,
