@@ -73,7 +73,7 @@
     extraConfig = {
       merge.tool = "fugitive";
       mergetool.keepBackup = false;
-      mergetool.fugitive.cmd = ''nvim -f -c "Gvdiffsplit!" "$MERGED"'';
+      mergetool.fugitive.cmd = ''lvim -f -c "Gvdiffsplit!" "$MERGED"'';
 
       # stop git from changing line endings
       core.autocrlf = false;

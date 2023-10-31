@@ -22,7 +22,7 @@ vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers,
   })
 lvim.format_on_save = {
   enabled = true,
-  pattern = "*.ml,*.iml,dune,*.lua,*.lean",
+  pattern = "*.ml,*.iml,dune,*.lua,*.lean,*.nix,*.hs",
 }
 
 vim.filetype.add({
@@ -143,6 +143,7 @@ lvim.plugins = {
     end
   },
   "tpope/vim-unimpaired",
+  "tpope/vim-fugitive",
   {
     "Julian/lean.nvim",
     event = { "BufReadPre *.lean", "BufNewFile *.lean" },
