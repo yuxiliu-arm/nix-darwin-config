@@ -22,7 +22,7 @@ vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers,
   })
 lvim.format_on_save = {
   enabled = true,
-  pattern = "*.ml,*.iml,dune,*.lua,*.lean,*.nix,*.hs",
+  pattern = "*.ml,*.iml,*.mli,dune,*.lua,*.lean,*.nix,*.hs,*.rs",
 }
 
 vim.filetype.add({
@@ -55,6 +55,9 @@ vim.api.nvim_create_autocmd({
     null_ls.setup({ sources = sources })
   end,
 })
+
+-- Do not preselect the LSP completion
+lvim.builtin.cmp.preselect = require "cmp.types.cmp".PreselectMode.None
 
 -- }
 
@@ -95,6 +98,11 @@ lvim.builtin.which_key.mappings["j"] = {
 
 lvim.builtin.which_key.mappings.b.d = {
   "<cmd>bdelete<cr>", "Close Buffer",
+}
+
+lvim.builtin.which_key.mappings.s.d = {
+  ":Telescope live_grep search_dirs=",
+  "Telescope search directories"
 }
 
 lvim.builtin.which_key.mappings["h"] = {}
