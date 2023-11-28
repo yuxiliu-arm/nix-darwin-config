@@ -226,3 +226,4 @@ eval "$(direnv hook bash)"
 source /Users/yuxi/.ghcup/env
 
 export PATH="${HOME}/.cargo/bin:${HOME}/.npm-global/bin:${HOME}/.local/bin:${PATH}"
+alias hledger-submit-posting='pushd ~/Documents/hledger && (git diff --quiet && git diff --staged --quiet || git commit -am posting) && git push && popd'
