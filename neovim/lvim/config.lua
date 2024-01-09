@@ -115,6 +115,11 @@ lvim.builtin.which_key.mappings.h.l = {
   "<cmd>edit /Users/yuxi/.hledger.journal<cr>",
   "Edit hledger journal",
 }
+
+lvim.builtin.which_key.mappings.h.w = {
+  "<cmd>set nonumber <bar> set signcolumn=no<cr>",
+  "Writing mode",
+}
 -- }
 
 -- }
