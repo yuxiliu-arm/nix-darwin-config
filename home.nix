@@ -49,7 +49,8 @@
       rustup
 
       # lean
-      elan
+      # elan
+      ccache
 
       # lua
       luajit
