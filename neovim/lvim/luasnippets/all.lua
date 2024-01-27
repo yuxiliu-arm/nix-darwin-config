@@ -27,8 +27,16 @@ local extras = require("luasnip.extras")
 -- local ms = ls.multi_snippet
 -- local k = require("luasnip.nodes.key_indexer").new_key
 
+local seconds_in_day = 24 * 60 * 60
+
 return {
   s("today",
     { extras.partial(os.date, "%Y-%m-%d") }
+  ),
+  s("yesterday",
+    { extras.partial(os.date, "%Y-%m-%d", os.time() - seconds_in_day) }
+  ),
+  s("before-yesterday",
+    { extras.partial(os.date, "%Y-%m-%d", os.time() - 2 * seconds_in_day) }
   ),
 }
