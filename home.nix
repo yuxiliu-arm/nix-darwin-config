@@ -37,7 +37,7 @@
 
       # work
       google-cloud-sdk
-      cloud-sql-proxy
+      google-cloud-sql-proxy
       terraform
       entr
       util-linux # for setsid

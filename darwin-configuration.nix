@@ -2,6 +2,8 @@
 
 {
 
+  nixpkgs.config.allowUnfree = true;
+
   # nixpkgs.hostPlatform = "aarch64-darwin";
   nix.extraOptions = ''
     experimental-features = nix-command flakes
