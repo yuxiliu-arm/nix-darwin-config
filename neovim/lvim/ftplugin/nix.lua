@@ -1,3 +1,4 @@
-local null_ls = require("null-ls")
-local sources = { null_ls.builtins.formatting.nixpkgs_fmt }
-null_ls.setup({ sources = sources })
+local formatters = require "lvim.lsp.null-ls.formatters"
+formatters.setup {
+  { name = "nixpkgs_fmt" },
+}
