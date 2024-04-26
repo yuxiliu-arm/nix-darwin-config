@@ -1,6 +1,6 @@
 export_function() {
   local name=$1
-  local alias_dir=$PWD/.direnv/aliases
+  local alias_dir=$PWD/.direnv-local/aliases
   mkdir -p "$alias_dir"
   PATH_add "$alias_dir"
   local target="$alias_dir/$name"
@@ -16,7 +16,7 @@ export_function() {
 export_alias() {
   local name=$1
   shift
-  local alias_dir=$PWD/.direnv/aliases
+  local alias_dir=$PWD/.direnv-local/aliases
   local target="$alias_dir/$name"
   local oldpath="$PATH"
   mkdir -p "$alias_dir"
