@@ -28,6 +28,7 @@ lvim.format_on_save = {
 vim.filetype.add({
   extension = {
     iml = "ocaml",
+    re = "ocaml",
   },
 })
 
