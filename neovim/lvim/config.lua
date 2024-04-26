@@ -22,7 +22,7 @@ vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers,
   })
 lvim.format_on_save = {
   enabled = true,
-  pattern = "*.ml,*.iml,*.mli,dune,*.lua,*.lean,*.nix,*.hs,*.rs",
+  pattern = "*re,*.ml,*.iml,*.mli,dune,*.lua,*.lean,*.nix,*.hs,*.rs",
 }
 
 vim.filetype.add({
@@ -56,6 +56,32 @@ vim.api.nvim_create_autocmd({
     null_ls.setup({ sources = sources })
   end,
 })
+
+-- override ocamlformat for reason files
+vim.api.nvim_create_autocmd({
+  "BufReadPre",
+  "BufRead",
+  "BufEnter",
+  "BufNewFile",
+  "BufNew",
+}, {
+  pattern = { "*.re" },
+  callback = function()
+    local null_ls = require("null-ls")
+    local refmt = {
+      name      = "refmt",
+      method    = null_ls.methods.FORMATTING,
+      filetypes = { "ocaml" },
+      generator = null_ls.formatter({
+        command = "refmt",
+        args = {},
+        to_stdin = true,
+      }),
+    }
+    null_ls.register(refmt)
+  end,
+})
+
 
 -- Do not preselect the LSP completion
 lvim.builtin.cmp.preselect = require "cmp.types.cmp".PreselectMode.None
