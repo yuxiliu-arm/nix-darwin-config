@@ -9,6 +9,8 @@
   # changes in each release.
   home.stateVersion = "22.11";
 
+  home.username = "ubikium";
+  home.homeDirectory = "/home/ubikium";
   home.packages = with pkgs;
     [
       # editors
@@ -36,10 +38,10 @@
       tree
 
       # work
-      google-cloud-sdk
-      google-cloud-sql-proxy
-      terraform
-      entr
+      # google-cloud-sdk
+      # google-cloud-sql-proxy
+      # terraform
+      # entr
       util-linux # for setsid
 
       # ocaml
@@ -127,7 +129,7 @@
       ".profile".text = "source ~/.bashrc";
       ".git-prompt.sh".source = pkgs.fetchurl {
         url = "https://raw.githubusercontent.com/git/git/e03acd0d4ad75115f454041fac3300ae796f108f/contrib/completion/git-prompt.sh";
-        sha256 = "XvptvCjYHcDa2YWlhVMhK3oziE3aUAb6uYV0CuJvfl8=";
+        sha256 = "R8cc2EQx+6uJy81tJDo7NUfAYG37ZiCeNd7KvybEx4A=";
       };
 
       # use OCaml syntax for iml and ipl files
