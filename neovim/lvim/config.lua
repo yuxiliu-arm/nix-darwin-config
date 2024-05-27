@@ -139,7 +139,7 @@ lvim.builtin.which_key.mappings.h.h = {
 }
 
 lvim.builtin.which_key.mappings.h.l = {
-  "<cmd>edit /Users/yuxi/.hledger.journal<cr>",
+  "<cmd>edit /home/ubikium/.hledger.journal<cr>",
   "Edit hledger journal",
 }
 
