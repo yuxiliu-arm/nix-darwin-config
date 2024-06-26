@@ -15,6 +15,7 @@ lvim.builtin.treesitter.ensure_installed = {
   "c",
   "ledger",
 }
+lvim.builtin.treesitter.indent.enable = false
 vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers,
   {
     "ocamllsp",
@@ -22,7 +23,7 @@ vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers,
   })
 lvim.format_on_save = {
   enabled = true,
-  pattern = "*re,*.ml,*.iml,*.mli,dune,*.lua,*.lean,*.nix,*.hs,*.rs",
+  pattern = "*re,*.ml,*.iml,*.mli,dune,*.lua,*.lean,*.nix,*.hs,*.rs,*.cc",
 }
 
 vim.filetype.add({
