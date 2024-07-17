@@ -57,6 +57,9 @@
       # lua
       luajit
       luaformatter
+
+      # life
+      hledger
     ];
 
   programs.direnv = {
@@ -95,11 +98,11 @@
   programs.neovim = {
     enable = true;
     plugins = import ./neovim/plugins.nix { inherit pkgs; };
-    coc = {
-      enable = true;
-      pluginConfig = builtins.readFile ./neovim/coc.vim;
-      settings = import ./neovim/coc-settings.json.nix;
-    };
+    # coc = {
+    #   enable = true;
+    #   pluginConfig = builtins.readFile ./neovim/coc.vim;
+    #   settings = import ./neovim/coc-settings.json.nix;
+    # };
     extraConfig = builtins.readFile ./neovim/init.vim;
     # extraLuaConfig = builtins.readFile ./neovim/init.lua;
   };
@@ -121,7 +124,7 @@
     let
       ocaml-syntax = pkgs.fetchurl {
         url = "https://raw.githubusercontent.com/neovim/neovim/master/runtime/syntax/ocaml.vim";
-        sha256 = "U52MI3QMk9sCZ4184Y1rDAyJcqjt/7HJbOOKCY+Md0w=";
+        sha256 = "XHY6pSqhMy5jKbcLJcyPvw2fUA+l1973JheC264zZeA=";
       };
     in
     {
