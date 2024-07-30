@@ -15,6 +15,20 @@ lvim.builtin.treesitter.ensure_installed = {
   "c",
   "ledger",
 }
+-- extra parser for ASL {
+local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+parser_config.asl = {
+  install_info = {
+    url = "/home/ubikium/Programs/asl.nvim", -- local path or git repo
+    files = { "src/parser.c" },              -- note that some parsers also require src/scanner.c or src/scanner.cc
+    -- optional entries:
+    branch = "master",                       -- default branch in case of git repo if different from master
+    generate_requires_npm = false,           -- if stand-alone parser without npm dependencies
+    requires_generate_from_grammar = false,  -- if folder contains pre-generated src/parser.c
+  },
+  filetype = "asl",                          -- if filetype does not match the parser name
+}
+-- }
 lvim.builtin.treesitter.indent.enable = false
 vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers,
   {
@@ -30,6 +44,7 @@ vim.filetype.add({
   extension = {
     iml = "ocaml",
     re = "ocaml",
+    asl = "asl",
   },
 })
 
