@@ -36,6 +36,7 @@
       ripgrep
       unzip
       tree
+      inotify-tools
 
       # work
       # google-cloud-sdk
