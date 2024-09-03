@@ -15,6 +15,21 @@ lvim.builtin.treesitter.ensure_installed = {
   "c",
   "ledger",
 }
+-- extra parser for ASL {
+local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+parser_config.asl = {
+  install_info = {
+    url = "/home/ubikium/Programs/asl.nvim", -- local path or git repo
+    files = { "src/parser.c" },              -- note that some parsers also require src/scanner.c or src/scanner.cc
+    -- optional entries:
+    branch = "master",                       -- default branch in case of git repo if different from master
+    generate_requires_npm = false,           -- if stand-alone parser without npm dependencies
+    requires_generate_from_grammar = false,  -- if folder contains pre-generated src/parser.c
+  },
+  filetype = "asl",                          -- if filetype does not match the parser name
+}
+-- }
+lvim.builtin.treesitter.indent.enable = false
 vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers,
   {
     "ocamllsp",
@@ -22,13 +37,14 @@ vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers,
   })
 lvim.format_on_save = {
   enabled = true,
-  pattern = "*re,*.ml,*.iml,*.mli,dune,*.lua,*.lean,*.nix,*.hs,*.rs",
+  pattern = "*re,*.ml,*.iml,*.mli,dune,*.lua,*.lean,*.nix,*.hs,*.rs,*.cc",
 }
 
 vim.filetype.add({
   extension = {
     iml = "ocaml",
     re = "ocaml",
+    asl = "asl",
   },
 })
 
@@ -139,7 +155,7 @@ lvim.builtin.which_key.mappings.h.h = {
 }
 
 lvim.builtin.which_key.mappings.h.l = {
-  "<cmd>edit /Users/yuxi/.hledger.journal<cr>",
+  "<cmd>edit /home/ubikium/.hledger.journal<cr>",
   "Edit hledger journal",
 }
 
@@ -243,7 +259,65 @@ lvim.plugins = {
   },
   {
     "simrat39/rust-tools.nvim",
-    -- ft = { "rust", "rs" },
+    -- https://github.com/LunarVim/starter.lvim/blob/fdc38b5f4d95f81707f0606b49a444f9b93adf62/config.lua
+    config = function()
+      require("rust-tools").setup {
+        tools = {
+          executor = require("rust-tools/executors").termopen, -- can be quickfix or termopen
+          reload_workspace_from_cargo_toml = true,
+          runnables = {
+            use_telescope = true,
+          },
+          inlay_hints = {
+            auto = true,
+            only_current_line = false,
+            show_parameter_hints = false,
+            parameter_hints_prefix = "<-",
+            other_hints_prefix = "=>",
+            max_len_align = false,
+            max_len_align_padding = 1,
+            right_align = false,
+            right_align_padding = 7,
+            highlight = "Comment",
+          },
+          hover_actions = {
+            border = "rounded",
+          },
+          on_initialized = function()
+            vim.api.nvim_create_autocmd({ "BufWritePost", "BufEnter", "CursorHold", "InsertLeave" }, {
+              pattern = { "*.rs" },
+              callback = function()
+                local _, _ = pcall(vim.lsp.codelens.refresh)
+              end,
+            })
+          end,
+        },
+        -- dap = {
+        --   -- adapter= codelldb_adapter,
+        --   adapter = require("rust-tools.dap").get_codelldb_adapter(codelldb_path, liblldb_path),
+        -- },
+        server = {
+          on_attach = function(client, bufnr)
+            require("lvim.lsp").common_on_attach(client, bufnr)
+            local rt = require "rust-tools"
+            vim.keymap.set("n", "K", rt.hover_actions.hover_actions, { buffer = bufnr })
+          end,
+
+          capabilities = require("lvim.lsp").common_capabilities(),
+          settings = {
+            ["rust-analyzer"] = {
+              lens = {
+                enable = true,
+              },
+              checkOnSave = {
+                enable = true,
+                command = "clippy",
+              },
+            },
+          },
+        },
+      }
+    end
   },
   {
     "phaazon/hop.nvim",
