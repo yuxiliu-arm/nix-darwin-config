@@ -13,7 +13,6 @@ lvim.builtin.treesitter.ensure_installed = {
   "ocaml",
   "haskell",
   "c",
-  "ledger",
 }
 -- extra parser for ASL {
 local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
@@ -152,11 +151,6 @@ lvim.builtin.which_key.mappings["h"] = {}
 
 lvim.builtin.which_key.mappings.h.h = {
   "<cmd>noh<cr>", "No highlight",
-}
-
-lvim.builtin.which_key.mappings.h.l = {
-  "<cmd>edit /home/ubikium/.hledger.journal<cr>",
-  "Edit hledger journal",
 }
 
 lvim.builtin.which_key.mappings.h.w = {
@@ -326,10 +320,6 @@ lvim.plugins = {
       -- you can configure Hop the way you like here; see :h hop-config
       require "hop".setup()
     end
-  },
-  {
-    "ledger/vim-ledger",
-    ft = { "ledger" },
   },
   {
     "johmsalas/text-case.nvim",
