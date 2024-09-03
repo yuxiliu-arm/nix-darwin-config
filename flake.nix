@@ -13,18 +13,20 @@
     };
   };
 
-  outputs = inputs@{ self, nix-darwin, nixpkgs, home-manager }: {
-    darwinConfigurations."rubeno" = nix-darwin.lib.darwinSystem {
-      system = "aarch64-darwin";
-      modules = [
-        ./darwin-configuration.nix
-        home-manager.darwinModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users.yuxi = import ./home.nix;
-        }
-      ];
-    };
+  outputs = inputs@{ self, nix-darwin, nixpkgs, home-manager }:
+    let system = "aarch64-darwin";
+    in {
+      darwinConfigurations."GXC6X3LD0H" = nix-darwin.lib.darwinSystem {
+        inherit system;
+        modules = [
+          ./darwin-configuration.nix
+          home-manager.darwinModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.yuxliu01 = import ./home.nix { pkgs = nixpkgs.legacyPackages.${system}; };
+          }
+        ];
+      };
   };
 }

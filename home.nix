@@ -93,13 +93,13 @@
 
   programs.neovim = {
     enable = true;
-    plugins = import ./neovim/plugins.nix { inherit pkgs; };
-    coc = {
-      enable = true;
-      pluginConfig = builtins.readFile ./neovim/coc.vim;
-      settings = import ./neovim/coc-settings.json.nix;
-    };
-    extraConfig = builtins.readFile ./neovim/init.vim;
+    # plugins = import ./neovim/plugins.nix { inherit pkgs; };
+    # coc = {
+    #   enable = true;
+    #   pluginConfig = builtins.readFile ./neovim/coc.vim;
+    #   settings = import ./neovim/coc-settings.json.nix;
+    # };
+    # extraConfig = builtins.readFile ./neovim/init.vim;
     # extraLuaConfig = builtins.readFile ./neovim/init.lua;
   };
 
@@ -120,7 +120,7 @@
     let
       ocaml-syntax = pkgs.fetchurl {
         url = "https://raw.githubusercontent.com/neovim/neovim/master/runtime/syntax/ocaml.vim";
-        sha256 = "U52MI3QMk9sCZ4184Y1rDAyJcqjt/7HJbOOKCY+Md0w=";
+        sha256 = "XHY6pSqhMy5jKbcLJcyPvw2fUA+l1973JheC264zZeA=";
       };
     in
     {
@@ -128,7 +128,7 @@
       ".profile".text = "source ~/.bashrc";
       ".git-prompt.sh".source = pkgs.fetchurl {
         url = "https://raw.githubusercontent.com/git/git/e03acd0d4ad75115f454041fac3300ae796f108f/contrib/completion/git-prompt.sh";
-        sha256 = "XvptvCjYHcDa2YWlhVMhK3oziE3aUAb6uYV0CuJvfl8=";
+        sha256 = "R8cc2EQx+6uJy81tJDo7NUfAYG37ZiCeNd7KvybEx4A=";
       };
 
       # use OCaml syntax for iml and ipl files

@@ -13,16 +13,16 @@
     keep-outputs = true  # Do not garbage-collect build time-only dependencies (e.g. clang)
     
     # Allow fetching build results from the Lean Cachix cache
-    trusted-users = yuxi
-    trusted-substituters = https://lean4.cachix.org/
-    trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= lean4.cachix.org-1:mawtxSxcaiWE24xCXXgh3qnvlTkyU7evRRnGeAhD4Wk=
+    # trusted-users = yuxi
+    # trusted-substituters = https://lean4.cachix.org/
+    # trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= lean4.cachix.org-1:mawtxSxcaiWE24xCXXgh3qnvlTkyU7evRRnGeAhD4Wk=
     # }
   '';
 
-  users.users.yuxi =
+  users.users.yuxliu01 =
     {
-      name = "yuxi";
-      home = "/Users/yuxi";
+      name = "yuxliu01";
+      home = "/Users/yuxliu01";
     };
 
   # home-manager.users.yuxi = import ./home.nix { inherit pkgs; };
