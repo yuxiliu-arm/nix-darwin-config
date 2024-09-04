@@ -42,6 +42,8 @@
       # entr
       # util-linux # for setsid
       pre-commit
+      gmp
+      pkg-config
 
       # ocaml
       opam
