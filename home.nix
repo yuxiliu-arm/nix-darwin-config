@@ -34,6 +34,7 @@
       ripgrep
       unzip
       tree
+      rclone
 
       # work
       # google-cloud-sdk
@@ -44,6 +45,7 @@
       pre-commit
       gmp
       pkg-config
+      qemu
 
       # ocaml
       opam
