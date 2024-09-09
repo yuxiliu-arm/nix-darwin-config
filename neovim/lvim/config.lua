@@ -243,7 +243,14 @@ lvim.plugins = {
         on_attach = require("lvim.lsp").common_on_attach,
         on_init = require("lvim.lsp").common_on_init,
         on_exit = require("lvim.lsp").common_on_exit,
-        capabilities = require("lvim.lsp").common_capabilities(),
+        capabilities = function()
+          local capabilities = require("lvim.lsp").common_capabilities()
+          -- https://gitlab.com/mrossinek/dotfiles/-/commit/8f5919d685e4c26ce0ea44b93673db9985c335f9
+          -- https://github.com/neovim/neovim/pull/23190
+          -- https://github.com/neovim/neovim/issues/23291
+          capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
+          return capabilities
+        end,
       },
     },
   },
