@@ -44,6 +44,8 @@ vim.filetype.add({
     iml = "ocaml",
     re = "ocaml",
     asl = "asl",
+    cat = "cat",
+    litmus = "litmus",
   },
 })
 

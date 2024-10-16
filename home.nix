@@ -46,6 +46,7 @@
       gmp
       pkg-config
       qemu
+      pandoc
 
       # ocaml
       opam
