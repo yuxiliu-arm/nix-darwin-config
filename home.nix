@@ -47,6 +47,7 @@
       pkg-config
       qemu
       pandoc
+      fswatch
 
       # ocaml
       opam
