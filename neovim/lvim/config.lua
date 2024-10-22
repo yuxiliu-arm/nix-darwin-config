@@ -230,6 +230,8 @@ lvim.plugins = {
   },
   "tpope/vim-unimpaired",
   "tpope/vim-fugitive",
+  "tpope/vim-dispatch",
+  "radenling/vim-dispatch-neovim",
   {
     "Julian/lean.nvim",
     event = { "BufReadPre *.lean", "BufNewFile *.lean" },
