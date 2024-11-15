@@ -48,6 +48,7 @@
       qemu
       pandoc
       fswatch
+      nodePackages.prettier
 
       # ocaml
       opam

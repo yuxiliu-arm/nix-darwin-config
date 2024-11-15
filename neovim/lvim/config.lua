@@ -36,7 +36,7 @@ vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers,
   })
 lvim.format_on_save = {
   enabled = true,
-  pattern = "*re,*.ml,*.iml,*.mli,dune,*.lua,*.lean,*.nix,*.hs,*.rs,*.cc",
+  pattern = "*re,*.ml,*.iml,*.mli,dune,*.lua,*.lean,*.nix,*.hs,*.rs,*.cc,*.ts,*.html,*js",
 }
 
 vim.filetype.add({
@@ -48,7 +48,6 @@ vim.filetype.add({
     litmus = "litmus",
   },
 })
-
 
 -- override ocamlformat for iml files
 vim.api.nvim_create_autocmd({
@@ -99,6 +98,24 @@ vim.api.nvim_create_autocmd({
   end,
 })
 
+vim.api.nvim_create_autocmd({
+  "BufReadPre",
+  "BufRead",
+  "BufEnter",
+  "BufNewFile",
+  "BufNew",
+}, {
+  pattern = { "*.ts,*.html,*.js" },
+  callback = function()
+    -- options
+    vim.opt.foldmethod = "indent"
+
+    -- ocamllsp extra arg
+    local null_ls = require("null-ls")
+    local sources = { null_ls.builtins.formatting.prettier }
+    null_ls.setup({ sources = sources })
+  end,
+})
 
 -- Do not preselect the LSP completion
 lvim.builtin.cmp.preselect = require "cmp.types.cmp".PreselectMode.None
