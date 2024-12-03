@@ -51,6 +51,14 @@
       enableCompletion = true;
     };
 
+  homebrew = {
+    enable = true;
+    brews = [
+      "aarch64-elf-gcc"
+      "gnu-getopt"
+    ];
+  };
+
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
   system.stateVersion = 4;
