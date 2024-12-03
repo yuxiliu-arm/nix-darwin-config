@@ -46,6 +46,7 @@
       gmp
       pkg-config
       qemu
+      coreutils
       # pandoc # version too old
       fswatch
       nodePackages.prettier
