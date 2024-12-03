@@ -46,7 +46,7 @@
       gmp
       pkg-config
       qemu
-      pandoc
+      # pandoc # version too old
       fswatch
       nodePackages.prettier
 

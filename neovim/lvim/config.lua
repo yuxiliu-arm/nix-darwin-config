@@ -13,7 +13,10 @@ lvim.builtin.treesitter.ensure_installed = {
   "ocaml",
   "haskell",
   "c",
+  "html",
+  "typescript",
 }
+lvim.builtin.autopairs.active = false
 -- extra parser for ASL {
 local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
 parser_config.asl = {
