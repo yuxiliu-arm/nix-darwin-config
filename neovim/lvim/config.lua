@@ -15,6 +15,10 @@ lvim.builtin.treesitter.ensure_installed = {
   "c",
   "html",
   "typescript",
+  "vimdoc",
+  "luadoc",
+  "vim",
+  "python",
 }
 lvim.builtin.autopairs.active = false
 -- extra parser for ASL {
@@ -39,7 +43,7 @@ vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers,
   })
 lvim.format_on_save = {
   enabled = true,
-  pattern = "*re,*.ml,*.iml,*.mli,dune,*.lua,*.lean,*.nix,*.hs,*.rs,*.cc,*.ts,*.html,*js",
+  pattern = "*re,*.ml,*.iml,*.mli,dune,*.lua,*.lean,*.nix,*.hs,*.rs,*.cc,*.ts,*.html,*js,*py",
 }
 
 vim.filetype.add({
@@ -63,7 +67,9 @@ vim.api.nvim_create_autocmd({
   pattern = { "*.iml" },
   callback = function()
     -- options
-    vim.opt.foldmethod = "indent"
+    if not vim.api.nvim_win_get_option(0, "diff") then
+      vim.opt.foldmethod = "indent"
+    end
 
     -- ocamllsp extra arg
     local null_ls = require("null-ls")
@@ -111,7 +117,9 @@ vim.api.nvim_create_autocmd({
   pattern = { "*.ts,*.html,*.js" },
   callback = function()
     -- options
-    vim.opt.foldmethod = "indent"
+    if not vim.api.nvim_win_get_option(0, "diff") then
+      vim.opt.foldmethod = "indent"
+    end
 
     -- ocamllsp extra arg
     local null_ls = require("null-ls")
@@ -418,11 +426,13 @@ vim.api.nvim_create_user_command("CmpToggleAllBuffers", toggle_cmp_all_buffers, 
 
 -- folding {
 -- use treesitter folding
-vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+if not vim.api.nvim_win_get_option(0, "diff") then
+  vim.opt.foldmethod = "expr"
+  vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 
--- do not fold by default
-vim.opt.foldenable = false
+  -- do not fold by default
+  vim.opt.foldenable = false
+end
 -- }
 
 -- }
