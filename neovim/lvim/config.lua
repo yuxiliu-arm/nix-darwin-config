@@ -246,6 +246,7 @@ lvim.builtin.lualine.sections.lualine_y = {
 
 -- Additional plugins
 lvim.plugins = {
+  { "nvim-neotest/nvim-nio" },
   {
     "kylechui/nvim-surround",
     version = "*", -- Use for stability; omit to use `main` branch for the latest features
