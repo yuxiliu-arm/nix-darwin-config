@@ -187,6 +187,21 @@ lvim.builtin.which_key.mappings.h.w = {
   "<cmd>set nonumber <bar> set signcolumn=no<cr>",
   "Writing mode",
 }
+
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup("my.lsp", {}),
+  callback = function(args)
+    local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+    if client.supports_method('textDocument/typeDefinition') then
+      lvim.lsp.buffer_mappings.normal_mode["gt"] = {
+        require 'telescope.builtin'.lsp_type_definitions,
+        -- vim.lsp.buf.type_definition {},
+        "Goto type definitions",
+      }
+    end
+  end
+})
+
 -- }
 
 -- }
