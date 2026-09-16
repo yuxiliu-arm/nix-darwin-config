@@ -38,15 +38,14 @@ parser_config.asl = {
 -- extra parser for rocq {
 parser_config.rocq = {
   install_info = {
-    url = 'https://github.com/aruzdh/tree-sitter-rocq',
-    revision = "300fe33fc299c30f736fd56d8ef8a28b08acd4e6", -- commit hash for revision to check out; HEAD if missing
-    files = { "src/parser.c" },                            -- note that some parsers also require src/scanner.c or src/scanner.cc
+    url = '/Users/yuxliu01/dev/tree-sitter-rocq', -- recompiled with ABI 14
+    files = { "src/parser.c" },                   -- note that some parsers also require src/scanner.c or src/scanner.cc
     -- optional entries:
     -- branch = 'develop',                                    -- only needed if different from default branch
     -- location = 'parser',                                   -- only needed if the parser is in subdirectory of a "monorepo"
     -- generate = true,                                       -- only needed if repo does not contain pre-generated `src/parser.c`
     -- generate_from_json = false,                            -- only needed if repo does not contain `src/grammar.json` either
-    -- queries = 'queries/neovim',                            -- also install queries from given directory
+    queries = 'queries/rocq', -- also install queries from given directory
   },
   filetype = "coq",
 }
@@ -56,7 +55,7 @@ vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers,
   {
     "ocamllsp",
     "rust-analyzer",
-    "coq-lsp",
+    "coq_lsp",
   })
 lvim.format_on_save = {
   enabled = true,
